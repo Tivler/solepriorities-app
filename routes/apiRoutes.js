@@ -8,14 +8,21 @@ route.get('/inventory' , (req, res) => {
       .catch(err => res.send(err))
   })
 
-route.post('/inventoryUpdate', async (req, res) => {
-    const { item_name } = req.body;
-    let inventory = {};
-    inventory.item_name = item_name;
+route.post('/inventoryUpdate', (req, res) => {
+    const {item_selling_price , purchase_date , purchase_price , item_name , item_size , item_condition , item_sku } = req.body;
 
-    let inventoryModel = new Inventory(inventory);
-    await inventoryModel.save();
-    res.json(inventoryModel);
+    const i = new Inventory({
+      item_selling_price,
+      purchase_date,
+      purchase_price,
+      item_name,
+      item_size,
+      item_condition,
+      item_sku
+    });
+   
+    i.save();
+    res.json(i)
 })
 
 module.exports = route;

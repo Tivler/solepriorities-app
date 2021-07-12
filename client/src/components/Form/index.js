@@ -3,99 +3,45 @@ import './_Form.scss';
 
 import { Link } from 'react-router-dom';
 
-const initialState = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    firstNameError: "",
-    lastNameError: "",
-    emailError: ""
-  };
+class Form extends React.Component {
 
-class NewsletterForm extends React.Component {
-    state = initialState;
-
-    handleChange = event => {
-        const isCheckbox = event.target.type === "checkbox";
-        this.setState({
-          [event.target.name]: isCheckbox
-            ? event.target.checked
-            : event.target.value
-        });
-      };
-
-    validate = () => {
-        let firstNameError = "";
-        let lastNameError = "";
-        let emailError = "";
-        let firstNameClass = document.querySelector('.firstNameError');
-        let lastNameClass = document.querySelector('.lastNameError');
-        let emailClass = document.querySelector('.emailError');
-
-        if (!this.state.firstName) {
-            firstNameError = "Field Required";
-        }
-
-        if (!this.state.lastName) {
-            lastNameError = "Field Required";
-        }
-
-        if (!this.state.email.includes('@')) {
-            emailError = 'Invalid Email Address';
-        }
-
-        if (emailError || firstNameError || lastNameError) {
-            this.setState({emailError , firstNameError , lastNameError});
-            firstNameClass.style.display = 'block';
-            lastNameClass.style.display = 'block';
-            emailClass.style.display = 'block';
-            return false;
-        }
-
-        return true;
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        let firstName = document.getElementsByName('firstName')[0].value;
-        let lastName = document.getElementsByName('lastName')[0].value;
-        let email = document.getElementsByName('email')[0].value;
-
-        let firstNameClass = document.querySelector('.firstNameError');
-        let lastNameClass = document.querySelector('.lastNameError');
-        let emailClass = document.querySelector('.emailError');
-        const isValid = this.validate();
-        if (isValid) {
-            this.newContact(firstName, lastName, email)
-                .then(res => alert(`Thanks for joining our community!`))
-            this.setState(initialState);
-            firstNameClass.style.display = 'none';
-            lastNameClass.style.display = 'none';
-            emailClass.style.display = 'none';
-            window.scrollTo(0,0)
-        }
-    }
-
-    newContact = async (firstName, lastName, email) => {
+    newInventory = async (item_selling_price , purchase_date, purchase_price, item_name, item_size, item_sku) => {
         try {
-         const res = await fetch('/api/submit' , {
+         const res = await fetch('/api/inventoryUpdate' , {
                 method: 'post',
                 headers: {
                     "Content-Type": "application/json", 
                 },
                 body: JSON.stringify({
-                    firstName,
-                    lastName,
-                    email
+                    item_selling_price,
+                    purchase_date,
+                    purchase_price,
+                    item_name,
+                    item_size,
+                    item_sku
                 })
             })
             const content = await res.json();
             console.log(content)
         }
-
         catch(err) {
             console.log(err)
         }
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        let item_selling_price = null;
+        let purchase_date = new Date().toLocaleDateString();
+        let purchase_price = document.getElementsByName('purchase_price')[0].value;
+        let item_name = document.getElementsByName('item_name')[0].value;
+        let item_size = document.getElementsByName('item_size')[0].value;
+        let item_condition = document.getElementsByName('item_condition')[0].value;
+        let item_sku = document.getElementsByName('item_sku')[0].value;
+
+        this.newInventory(item_selling_price , purchase_date, purchase_price, item_name, item_size, item_condition, item_sku);
+        
+        window.scrollTo(0,0)
     }
    
     render () {
@@ -103,50 +49,14 @@ class NewsletterForm extends React.Component {
             <>
             <Link to="/inventory" className="inventory">Inventory</Link>  
 
-            <div className="form__wrapper">
-                <form className="form" onSubmit={this.handleSubmit} method="POST" action="/submit">
-                    <h1 className="form__title">Subscribe</h1>
-
-                    <label htmlFor="inputFirstName">Enter Your First Name</label>
-                    <input 
-                        name="firstName" 
-                        placeholder="First Name" 
-                        value={this.state.firstName} 
-                        onChange={this.handleChange} 
-                        id="inputFirstName" 
-                        className="form--control"
-                    />
-
-                    <div className="error firstNameError">{this.state.firstNameError}</div>
-
-                    <label htmlFor="inputLastName">Enter Your Last Name</label>
-                    <input 
-                        name="lastName" 
-                        placeholder="Last Name" 
-                        value={this.state.lastName} 
-                        onChange={this.handleChange} 
-                        id="inputLastName" 
-                        className="form--control"
-                    />
-                    <div className="error lastNameError">{this.state.lastNameError}</div>
-
-                    <label htmlFor="inputEmail">Enter Your Email Address</label>
-                    <input 
-                        name="email" 
-                        placeholder="Email Address" 
-                        value={this.state.email} 
-                        onChange={this.handleChange} 
-                        id="inputEmail" 
-                        className="form--control"
-                    />
-                    <div className="error emailError">{this.state.emailError}</div>
-
-                    <label htmlFor="inputMessage">Got Any Questions</label>
-                    <textarea id="inputMessage" className="form--control" placeholder="Leave us a message!"></textarea>
-
-                    <button className="form--button" id="submitButton" type="submit">Submit</button>
-
-                    <p className="form__copyright">© Soundclout.io</p>
+            <div className="form">
+                <form className="form__wrapper" onSubmit={this.handleSubmit} method="POST" action="/submit">
+                    <input type="number" name="purchase_price"  placeholder="Purchase Price" />
+                    <input name="item_name" placeholder="Item Name"/>
+                    <input name="item_size" placeholder="Size" />
+                    <input name="item_condition" placeholder="Condition" />
+                    <input name="item_sku" placeholder="Sku" />
+                    <button type="submit">Submit</button>
                 </form>
             </div>
             </>
@@ -154,4 +64,4 @@ class NewsletterForm extends React.Component {
     }
 }
 
-export default NewsletterForm;
+export default Form;

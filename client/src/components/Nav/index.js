@@ -22,15 +22,6 @@ class Navbar extends React.Component {
         return (
 
         <nav className="nav">
-            <input type="checkbox" id="nav" className="nav--hidden" onClick={this.checked}></input>
-            <div className="nav__menu--wrapper">
-                <label htmlFor="nav" className="nav__menu--button">
-                    <i className="nav__menu--icon"></i>
-                    <i className="nav__menu--icon"></i>
-                    <i className="nav__menu--icon"></i> 
-                </label>
-            </div>
-
             <div className="nav__logo--wrapper">
                 <Link to="/" className="nav__logo__text">{this.props.logo}</Link>
             </div>

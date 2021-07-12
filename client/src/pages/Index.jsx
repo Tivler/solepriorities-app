@@ -10,7 +10,6 @@ class Index extends React.Component {
             <>
                 <Nav logo="Sole Priorities" link_one="Home" link_two="Inventory" />
                 <Form />
-                <div>Index</div>
             </>
         )
     }

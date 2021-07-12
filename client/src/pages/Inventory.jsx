@@ -10,7 +10,6 @@ class Inventory extends React.Component {
             <>
                 <Nav logo="Sole Priorities" link_one="Home" link_two="Inventory" />
                 <Data />
-                <div>Inventory</div>
             </>
         )
     }
