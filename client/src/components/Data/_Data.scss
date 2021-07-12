@@ -1,0 +1,25 @@
+.grid {
+    display: grid;
+    grid-template-columns: 400px 400px;
+    grid-gap: 40px;
+    justify-content: center;
+    margin: 140px 0;
+    z-index: -1;
+
+    @media only screen and (max-width: 950px) {
+        grid-template-columns: 400px;
+    }
+
+    &__card {
+        height: 400px;
+        width: 400px;
+        background-color: #333;
+        color: #fff;
+        font-family: "Montserrat" , sans-serif;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        border-radius: 5px;
+    }
+}
