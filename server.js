@@ -12,6 +12,17 @@ const connectDB = async () => {
    console.log("db has been connected");
 }
 
+const StockXAPI = require('stockx-api');
+const stockX = new StockXAPI();
+
+(async () => {
+    stockX.newSearchProducts('FV9922', {
+        limit: 1
+    })
+    .then(products => console.log(products))
+    .catch(err => console.log(`Error searching: ${err.message}`));
+})();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

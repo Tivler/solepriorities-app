@@ -3,7 +3,7 @@ import './_Form.scss';
 
 import { Link } from 'react-router-dom';
 
-class Form extends React.Component {
+class Forms extends React.Component {
 
     newInventory = async (item_selling_price , purchase_date, purchase_price, item_name, item_size, item_sku) => {
         try {
@@ -64,4 +64,4 @@ class Form extends React.Component {
     }
 }
 
-export default Form;
+export default Forms;
