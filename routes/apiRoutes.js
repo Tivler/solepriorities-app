@@ -9,6 +9,7 @@ route.get('/inventory' , (req, res) => {
   })
 
 route.post('/inventoryUpdate', (req, res) => {
+   
     const {item_selling_price , purchase_date , purchase_price , item_name , item_size , item_condition , item_sku } = req.body;
 
     const i = new Inventory({
