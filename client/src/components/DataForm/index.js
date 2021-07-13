@@ -42,7 +42,7 @@ class DataForm extends React.Component {
       <>
         <Formik
           enableReinitialize
-          initialValues={{purchase_date: new Date().toLocaleDateString() ,purchase_price: '', item_name: '', item_size: '', item_condition:'', item_sku:'', item_selling_price:'0'}}
+          initialValues={{purchase_date: new Date().toLocaleDateString() , purchase_price: '', item_name: '', item_size: '', item_condition: '' , item_sku:'' , item_selling_price: '' }}
           validate={(values) => {
             const errors = {};
             if (!values.purchase_price) {

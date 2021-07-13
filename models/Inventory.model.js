@@ -6,7 +6,7 @@ const inventory = new mongoose.Schema({
     purchase_price: { type: Number },
     item_name: { type: String },
     item_size: { type: String },
-    item_conditon: { type: String },
+    item_condition: { type: String },
     item_sku: { type: String }
 })
 

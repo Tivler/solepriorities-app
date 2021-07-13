@@ -30,6 +30,8 @@ class Data extends React.Component {
             {this.state.inventory.map(p => 
                 <div className="grid__card" key={p._id}>
                     <h3 className="grid__card__name">{p.item_name}</h3>
+                    <p className="grid__card__name">Size: {p.item_size}</p>
+                    <p className="grid__card__name">Sku: {p.item_sku}</p>
                 </div>
             )}
         </div>
